@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'com.unicamp.br'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    implementation 'com.github.CST-Group:WS3DProxy:0.0.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+test {
+    useJUnitPlatform()
+}

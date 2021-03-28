@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: lib/jme2.jar lib/lwjgl2.9.0.jar lib/json.jar lib/org.apach
+ e.sling.scripting.api-2.1.0.jar
+Main-Class: worldserver3d.Main
+

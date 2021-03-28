@@ -1,9 +1,19 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
+application {
+    mainClassName = 'ws3dmanualcontroller.ControllerStart'
+}
+
+description = "WS3D - Manual Controller"
+
 group 'com.unicamp.br'
-version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '0.0.1'
+
 
 repositories {
     mavenCentral()
@@ -15,6 +25,41 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
-test {
-    useJUnitPlatform()
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+task uberJar(type: Jar) {
+    archiveClassifier = 'full'
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': mainClassName
+        )
+    }
+    from sourceSets.main.output
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    }
+}
+artifacts
+        {
+            //archives javadocJar, sourcesJar
+            archives sourcesJar,uberJar
+        }
+
+jar {
+    manifest {
+        attributes(
+                //'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'worldserver3d.Main',
+                'Class-Path': 'lib/jme2.jar lib/lwjgl2.9.0.jar lib/json.jar lib/org.apache.sling.scripting.api-2.1.0.jar'
+        )
+    }
 }

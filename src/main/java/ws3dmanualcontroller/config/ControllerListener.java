@@ -59,12 +59,9 @@ public class ControllerListener implements KeyListener {
         else if (e.getKeyCode() == 90 && this.creature != null) {
             this.creature.updateState();
             List<Thing> thingsInVision = this.creature.getThingsInVision();
-            System.out.println("Found " + thingsInVision.size() + " Things.");
             thingsInVision.stream().forEach(thing -> {
                 double thingDistance = this.creature.calculateDistanceTo(thing);
-                System.out.println("Thing Name: " + thing.getName());
-                System.out.println("Distance to thing: " + thingDistance);
-                if (thingDistance < 30) {
+                if (thingDistance < 30 && (thing.getCategory() == 21 || thing.getCategory() == 22)) {
                     try {
                         this.creature.eatIt(thing.getName());
                     } catch (CommandExecException commandExecException) {
@@ -99,11 +96,8 @@ public class ControllerListener implements KeyListener {
         else if (e.getKeyCode() == 88 && this.creature != null) {
             this.creature.updateState();
             List<Thing> thingsInVision = this.creature.getThingsInVision();
-            System.out.println("Found " + thingsInVision.size() + " Things.");
             thingsInVision.stream().forEach(thing -> {
                 double thingDistance = this.creature.calculateDistanceTo(thing);
-                System.out.println("Thing Name: " + thing.getName());
-                System.out.println("Distance to thing: " + thingDistance);
                 if (thingDistance < 30) {
                     try {
                         this.creature.putInSack(thing.getName());
